@@ -49,8 +49,10 @@
     "zone.js": "0.8.12"
   },
   "devDependencies": {
+    "@types/auth0-js": "^8.10.0",
     "@types/chai": "4.0.1",
     "@types/jasmine": "2.5.53",
+    "auth0-js": "^8.10.1",
     "chai": "4.0.2",
     "jasmine-core": "2.6.4",
     "karma": "1.7.0",
