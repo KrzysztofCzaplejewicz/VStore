@@ -8,10 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.0.1" />
+    <PackageReference Include="bootstrap" Version="3.3.7" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
@@ -23,10 +28,19 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\auth\auth.service.ts" />
+    <None Remove="ClientApp\app\models\video.interface.ts" />
+    <None Remove="ClientApp\app\services\genre.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\auth\auth.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\video.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\genre.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\video.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="test\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

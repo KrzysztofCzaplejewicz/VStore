@@ -1,9 +1,12 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VStore.Persistance;
 
 namespace VStore
 {
@@ -19,7 +22,16 @@ namespace VStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
+            services.AddScoped<IVideoRepository, VideoRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddMvc();
+            services.AddDbContext<StoreDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
