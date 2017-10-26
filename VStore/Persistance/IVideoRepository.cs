@@ -7,7 +7,7 @@ namespace VStore.Persistance
 {
     public interface IVideoRepository
     {
-        Task<IEnumerable<Video>> GetVideos(VideoResource videoResource);
+        Task<IEnumerable<Video>> GetVideos(VideoResource saveVideoResource);
         void Add(Video video);
         void Remove(Video video);
         Task<Video> GetVideo(int id, bool includeRelated = true);

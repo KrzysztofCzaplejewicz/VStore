@@ -1,0 +1,59 @@
+﻿<h1>Videos</h1>
+<button class="btn btn-primary"><a class="as" [routerLink]="['/video/new']">New Video</a></button>
+<p *ngIf="!videos"><em>Loading...</em></p>
+
+<p class="test">
+    <input 
+        #query
+        (keyup)="filter(query.value)"
+        type="text" class="form-control" placeholder="Search..." />
+</p>
+
+<data-table
+    [items]="items"
+    [itemCount]="itemCount"
+    (reload)="reloadItems($event)">
+    <data-table-column [property]="'title'"
+                       [header]="'Title'"
+                       [sortable]="true"
+                       [resizable]="true">
+        <ng-template #dataTableCell let-item="item">
+            {{item.title}}
+        </ng-template>
+    </data-table-column>
+        <data-table-column
+            [property]="'price'"
+            [header]="'Price'"
+            [sortable]="true"
+            [resizable]="true">
+            <ng-template #dataTableCell let-item="item">
+                {{item.price | currency: 'PLN'}}
+            </ng-template>
+        </data-table-column>
+        <data-table-column [property]="'v.id'">
+            <ng-template #dataTableCell let-item="item">
+                <a [routerLink]="['/video/', item.id]">View</a>
+            </ng-template>
+        </data-table-column>
+    
+</data-table>
+
+
+<!--<table class='table'>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Title</th>-->
+<!--        <th>Genre</th>-->
+<!--        <th>Price</th>-->
+<!--        <th></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let v of filteredVideos">-->
+<!--        <td>{{ v.title }}</td>-->
+<!--        <td>{{ v.genre.name }}</td>-->
+<!--        <td>{{ v.price | currency: "PLN" }}</td>-->
+<!--        <td><a [routerLink]="['/video/', v.id]">View</a></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->

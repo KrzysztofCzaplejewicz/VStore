@@ -16,4 +16,21 @@ export interface SaveVideo {
     price: number;
     quantity: number;
     genreId: number;
+
+}
+
+export interface UpdateVideo {
+    id: number;
+    title: string;
+    price: number;
+    quantity: number;
+    genreId: number;
+}
+
+export interface VideoArr {
+    id: number;
+    title: string;
+    price: number;
+    quantity: number;
+    genre: string;
 }

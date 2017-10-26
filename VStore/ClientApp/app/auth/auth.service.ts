@@ -20,7 +20,9 @@ export class AuthService {
 
     constructor(public router: Router) {
         this.profile = JSON.parse((localStorage.getItem('profile')) as any);
-        console.log("profile", this.profile);
+        console.log("profile", this.auth0.client);
+
+        
     }
 
     public login(): void {
@@ -31,9 +33,9 @@ export class AuthService {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
                 this.setSession(authResult);
-                this.router.navigate(['/home']);
+                this.router.navigate(['/video']);
             } else if (err) {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/video']);
                 console.log(err);
             }
         });

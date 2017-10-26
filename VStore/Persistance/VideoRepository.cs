@@ -16,9 +16,9 @@ namespace VStore.Persistance
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Video>> GetVideos(VideoResource videoResource)
+        public async Task<IEnumerable<Video>> GetVideos(VideoResource saveVideoResource)
         {
-            var videos = _dbContext.Videos.AsQueryable();
+            var videos = _dbContext.Videos.Include(x => x.Genre).AsQueryable();
             return await videos.ToListAsync();
         }
 
@@ -36,7 +36,7 @@ namespace VStore.Persistance
             if (!includeRelated)
                 return await _dbContext.Videos.FindAsync(id);
 
-            return await _dbContext.Videos.SingleOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Videos.Include(x => x.Genre).SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }

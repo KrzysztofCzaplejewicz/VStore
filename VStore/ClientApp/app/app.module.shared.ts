@@ -12,6 +12,11 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { LoginFormComponent } from "./components/login-form/login.form.component";
 import { VideoFormComponent } from "./components/video-form/video.form.component";
+import { VideoComponent } from "./components/video-component/video.component";
+import { DataTableModule } from "angular-4-data-table-bootstrap-4";
+import { VideosComponent } from "./components/videos/videos.component";
+import {VideoFilterComponent} from "./components/videos/video-filter/video.filter.component";
+import {VideoCardComponent} from "./components/video-card/video.card.component";
 
 
 @NgModule({
@@ -22,21 +27,26 @@ import { VideoFormComponent } from "./components/video-form/video.form.component
         FetchDataComponent,
         HomeComponent,
         LoginFormComponent,
-        VideoFormComponent
+        VideoFormComponent,
+        VideoComponent,
+        VideosComponent,
+        VideoFilterComponent,
+        VideoCardComponent
     ],
     imports: [
         CommonModule,
         HttpModule,
         FormsModule,
         CustomFormsModule,
+        DataTableModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
+            { path: '', redirectTo: 'videos', pathMatch: 'full' },
             { path: 'login', component: LoginFormComponent },
-            { path: 'video', component: VideoFormComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: '**', redirectTo: 'home' }
+            { path: 'video/new', component: VideoFormComponent },
+            { path: 'video/:id', component: VideoFormComponent },
+            { path: 'video', component: VideoComponent },
+            { path: 'videos', component: VideosComponent },
+            { path: '**', redirectTo: 'videos' }
         ])
     ]
 })

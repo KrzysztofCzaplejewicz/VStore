@@ -1,10 +1,12 @@
-﻿<h1>New Video</h1>
+﻿
+<h1 *ngIf="!video.id">New Video</h1>
+<h1 *ngIf="video.id">Edit Video</h1>
 <div class="row">
     <div class="col-md-6">
         <form #f="ngForm" (ngSubmit)="save(f.value)">
             <div class="form-group">
                 <label for="title">Title</label>
-                <input #title="ngModel" ngModel name="title" type="text" id="title" class="form-control" required />
+                <input #title="ngModel" [(ngModel)]="video.title" name="title" type="text" id="title" class="form-control" required />
                 <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
                     Title is required.
                 </div>
@@ -13,7 +15,7 @@
                 <label for="price">Price</label>
                 <div class="input-group">
                     <span class="input-group-addon">PLN</span>
-                    <input #price="ngModel" ngModel name="price" type="text" id="price" class="form-control" required [min]="0" />
+                    <input #price="ngModel" [(ngModel)]="video.price" name="price" type="text" id="price" class="form-control" required [min]="0" />
                 </div>
                 <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
                     <div *ngIf="price.errors.required">Price is required.</div>
@@ -22,8 +24,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="genre">Genre</label>
-                <select id="genre"
+                <label for="genreId">Genre</label>
+                <select id="genreId"
                         [(ngModel)]="video.genreId"
                         name="genreId"
                         class="form-control"
@@ -38,23 +40,17 @@
             </div>
             <div class="form-group">
                 <label for="quantity">Quantity</label>
-                <input #quantity="ngModel" ngModel name="quantity" type="text" id="quantity" class="form-control" required [min]="0" />
+                <input #quantity="ngModel" [(ngModel)]="video.quantity"  name="quantity" type="text" id="quantity" class="form-control" required [min]="0" />
                 <div class="alert alert-danger" *ngIf="quantity.touched && quantity.invalid">
                     <div *ngIf="quantity.errors.required">Quantity is required.</div>
                     <div *ngIf="quantity.errors.min">Quantity should be 0 or higher.</div>
                 </div>
             </div>
             <button class="btn btn-primary">Save</button>
+            <button (click)="delete()" *ngIf="video.id" class="btn btn-danger">Delete</button>
         </form>
     </div>
     <div class="col-md-6">
-        <div class="card" style="width: 20rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+        <video-card [video]="video" [show-actions]="false"></video-card>
     </div>
 </div>

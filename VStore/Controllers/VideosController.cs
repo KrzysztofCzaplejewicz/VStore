@@ -23,39 +23,41 @@ namespace VStore.Controllers
             _unitOfWork = unitOfWork;
         }
         [HttpGet()]
-        public async Task<IEnumerable<VideoResource>> GetVideos(VideoResource videoResource)
+        public async Task<IEnumerable<VideoResource>> GetVideos(VideoResource saveVideoResource)
         {
-            var videos = await _repository.GetVideos(videoResource);
+            var videos = await _repository.GetVideos(saveVideoResource);
             return _mapper.Map<IEnumerable<Video>, IEnumerable<VideoResource>>(videos);
 
         }
         [HttpPost]
-        public async Task<IActionResult> CreateVideo([FromBody] VideoResource videoResource)
+        public async Task<IActionResult> CreateVideo([FromBody] SaveVideoResource saveVideoResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var video = _mapper.Map<VideoResource, Video>(videoResource);
+            var video = _mapper.Map<SaveVideoResource, Video>(saveVideoResource);
             _repository.Add(video);
             await _unitOfWork.CompleteAsync();
+            await _unitOfWork.ChangeVideo(video.Id);
             var result = _mapper.Map<Video, VideoResource>(video);
             return Ok(result);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVideo(int id, [FromBody] VideoResource videoResource)
+        public async Task<IActionResult> UpdateVideo(int id, [FromBody] SaveVideoResource saveVideoResource)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            await _unitOfWork.ChangeVideo(id);
 
             var video = await _repository.GetVideo(id);
             if (video == null)
             {
                 return NotFound();
             }
-            _mapper.Map(videoResource, video);
+            _mapper.Map(saveVideoResource, video);
             await _unitOfWork.CompleteAsync();
             var result = _mapper.Map<Video, VideoResource>(video);
             return Ok(result);

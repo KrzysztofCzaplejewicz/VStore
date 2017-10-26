@@ -8,10 +8,13 @@ namespace VStore.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Video, VideoResource>();
+            CreateMap<Video, SaveVideoResource>();
+            CreateMap<Video, VideoResource>().ForMember(x => x.Genre, opt => opt.MapFrom(x => new KeyValuePair() { Id = x.GenreId, Name = x.Genre.Name }));
             CreateMap<Genre, GenreResource>();
+            CreateMap<Genre, KeyValuePair>();
 
-            CreateMap<VideoResource, Video>()
+
+            CreateMap<SaveVideoResource, Video>()
                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<GenreResource, Genre>()
                 .ForMember(x => x.Id, opt => opt.Ignore());

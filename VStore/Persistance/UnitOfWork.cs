@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace VStore.Persistance
 {
@@ -14,6 +15,11 @@ namespace VStore.Persistance
         public async Task CompleteAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangeVideo(int id)
+        {
+            await _context.Videos.Include(x => x.Genre).SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }

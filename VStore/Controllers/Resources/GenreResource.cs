@@ -7,11 +7,11 @@ namespace VStore.Controllers.Resources
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<VideoResource> Videos { get; set; }
+        public ICollection<SaveVideoResource> Videos { get; set; }
 
         public GenreResource()
         {
-            Videos = new Collection<VideoResource>();
+            Videos = new Collection<SaveVideoResource>();
         }
 
     }

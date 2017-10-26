@@ -1,0 +1,16 @@
+﻿<div class="sticky-top">
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action"
+           [class.active]="!genre"
+           [routerLink]="['/videos']">
+            All Genres
+        </a>
+        <a *ngFor="let g of genres$ | async"
+           class="list-group-item list-group-item-action"
+           [routerLink]="['/videos']"
+           [queryParams]="{genre: g.name}"
+           [class.active]="genre === g.name">
+            {{g.name}}
+        </a>
+    </div>
+</div>
